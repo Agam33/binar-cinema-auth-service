@@ -16,11 +16,11 @@ eureka:
   
 spring:
   application:
-    name: AUTH-SERVICE
+    name: auth-service
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   datasource:
     url: jdbc:postgresql://localhost:5432/bioskop_db
     # jdbc:postgresql://containers-us-west-68.railway.app:6368/railway

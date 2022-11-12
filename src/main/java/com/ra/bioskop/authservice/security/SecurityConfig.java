@@ -61,13 +61,13 @@ public class SecurityConfig {
                 .permitAll()
 
                 // Admin
-                .antMatchers("/api/v1/films/addAll", "/api/v1/films/add", "/api/v1/films/delete",
-                        "/api/v1/films/addSchedule", "/api/v1/films/update", Constants.NOTIFICATION_ENDPOINT+"/**")
-                .hasRole("ADMIN")
+                // .antMatchers("/api/v1/films/addAll", "/api/v1/films/add", "/api/v1/films/delete",
+                //         "/api/v1/films/addSchedule", "/api/v1/films/update", Constants.NOTIFICATION_ENDPOINT+"/**")
+                // .hasRole("ADMIN")
 
-                // Customer
-                .antMatchers("/api/v1/user/update", "/api/v1/user/delete", "/api/invoice/download")
-                .hasRole("CUSTOMER")
+                // // Customer
+                // .antMatchers("/api/v1/user/update", "/api/v1/user/delete", "/api/invoice/download")
+                // .hasRole("CUSTOMER")
 
                 .anyRequest().authenticated()
 
