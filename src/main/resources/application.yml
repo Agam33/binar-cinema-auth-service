@@ -3,8 +3,8 @@ app:
     key: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
     exp: 18000000
 
-server:
-  port: 8082
+# server:
+#   port: 8082
 
 eureka:
   instance:
@@ -16,15 +16,24 @@ eureka:
   
 spring:
   application:
-    name: AUTH-SERVICE
+    name: auth-service
+  config:
+    import: optional:configserver:http://localhost:8888
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-  datasource:
-    url: jdbc:postgresql://localhost:5432/bioskop_db
-    # jdbc:postgresql://containers-us-west-68.railway.app:6368/railway
-    # password : xhtTI10rPJkQvUXUpfVz
-    username: postgres
-    password: password
-    driver-class-name: org.postgresql.Driver
+management:
+  endpoints:
+     web:
+       exposure:
+         include: '*'
+
+
+#   jpa:
+#     hibernate:
+#       ddl-auto: update
+#   datasource:
+#     url: jdbc:postgresql://localhost:5432/bioskop_db
+#     # jdbc:postgresql://containers-us-west-68.railway.app:6368/railway
+#     # password : xhtTI10rPJkQvUXUpfVz
+#     username: postgres
+#     password: password
+#     driver-class-name: org.postgresql.Driver

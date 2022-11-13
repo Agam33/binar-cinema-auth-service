@@ -3,15 +3,20 @@ package com.ra.bioskop.authservice.controller;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +28,7 @@ import com.ra.bioskop.authservice.dto.request.user.UserDTO;
 import com.ra.bioskop.authservice.dto.response.JwtResponse;
 import com.ra.bioskop.authservice.dto.response.Response;
 import com.ra.bioskop.authservice.dto.response.ResponseError;
+import com.ra.bioskop.authservice.dto.response.ValidateTokenResponse;
 import com.ra.bioskop.authservice.exception.BioskopException;
 import com.ra.bioskop.authservice.exception.ExceptionType;
 import com.ra.bioskop.authservice.exception.BioskopException.DuplicateEntityException;
@@ -33,11 +39,14 @@ import com.ra.bioskop.authservice.service.UserService;
 import com.ra.bioskop.authservice.util.Constants;
 import com.ra.bioskop.authservice.util.JwtUtil;
 
+@RefreshScope
 @CrossOrigin(origins = "*", maxAge = 3900)
 // @Tag(name = "Auth")
 @RestController
 @RequestMapping(Constants.AUTH_ENDPOINT)
 public class AuthController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     
     @Autowired
     private UserService userService;
@@ -78,6 +87,19 @@ public class AuthController {
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseError(HttpStatus.UNAUTHORIZED.value(),
                     new Date(), e.getMessage()), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("/validateToken")
+    public ResponseEntity<?> validateToken(HttpServletRequest request) {
+        try {
+            String authorities = (String) request.getAttribute("authorities");
+            String token = (String) request.getAttribute("token");
+            LOGGER.info("controller authorities - "+ authorities);
+            return ResponseEntity.ok(new ValidateTokenResponse(token, authorities));
+        } catch(Exception e) {
+            return new ResponseEntity<>(new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    new Date(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

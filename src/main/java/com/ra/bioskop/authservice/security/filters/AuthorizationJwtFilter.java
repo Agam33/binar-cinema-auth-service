@@ -1,13 +1,17 @@
 package com.ra.bioskop.authservice.security.filters;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +25,8 @@ import com.ra.bioskop.authservice.util.JwtUtil;
 
 @Component
 public class AuthorizationJwtFilter extends OncePerRequestFilter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationJwtFilter.class);
 
     private final JwtUtil jwtUtil;
 
@@ -54,15 +60,21 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
 
     private void setAuthentication(String token, HttpServletRequest request) {
         String email = jwtUtil.getUserNameFromJwtToken(token);
-
+        LOGGER.info("Email - " + email);
         UserDetails userDetails = userDetailService.loadUserByUsername(email);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 null,
                 userDetails.getAuthorities());
+
+        request.setAttribute("token", token);
+        request.setAttribute("authorities", authoritiesToString(userDetails.getAuthorities()));
+        
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        
+        
     }
 
     private String getToken(HttpServletRequest request) {
@@ -73,5 +85,14 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
     private boolean hasToken(HttpServletRequest request) {
         String header = request.getHeader(Constants.HEADER);
         return !ObjectUtils.isEmpty(header) && header.startsWith(Constants.TOKEN_PREFIX);
+    }
+
+    private String authoritiesToString(Collection<? extends GrantedAuthority> collection) {
+        StringBuilder strb = new StringBuilder();
+        for(GrantedAuthority a : collection) {
+            strb.append(a.getAuthority());
+            strb.append(" ");
+        }
+        return strb.toString().trim();
     }
 }

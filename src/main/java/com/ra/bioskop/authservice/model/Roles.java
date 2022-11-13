@@ -38,4 +38,9 @@ public class Roles {
     @JsonIgnore
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<Users> users = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return this.name.name();
+    }
 }
