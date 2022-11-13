@@ -10,7 +10,7 @@ eureka:
   instance:
     client:
       serviceUrl:
-        defaultZone: http://localhost:8761/eureka/
+        defaultZone: http://0.0.0.0:8761/eureka/
         registerWithEureka: true
         fetchRegistry: true
   
@@ -18,7 +18,7 @@ spring:
   application:
     name: auth-service
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://0.0.0.0:8888
 
 management:
   endpoints:
