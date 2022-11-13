@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,6 +39,7 @@ import com.ra.bioskop.authservice.service.UserService;
 import com.ra.bioskop.authservice.util.Constants;
 import com.ra.bioskop.authservice.util.JwtUtil;
 
+@RefreshScope
 @CrossOrigin(origins = "*", maxAge = 3900)
 // @Tag(name = "Auth")
 @RestController
