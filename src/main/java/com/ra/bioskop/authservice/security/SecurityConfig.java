@@ -15,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ra.bioskop.authservice.security.filters.AuthorizationJwtFilter;
-import com.ra.bioskop.authservice.util.Constants;
 
 @Configuration
 @EnableWebSecurity
@@ -57,7 +56,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(
-                        "/", "/api/auth/signin", "/api/auth/signup")
+                        "/", "/api/auth/**")
                 .permitAll()
 
                 // Admin

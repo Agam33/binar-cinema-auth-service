@@ -17,6 +17,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 
+
+@SuppressWarnings("deprecation")
 @Component
 public class JwtUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtil.class);
@@ -27,24 +29,24 @@ public class JwtUtil {
     @Value("${app.jwt.exp}")
     private long jwtExpirations;
 
-    @SuppressWarnings("deprecation")
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl appUser = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(appUser.getUsername())
+                .claim("role", appUser.getUser().getRoles().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + jwtExpirations))
                 .signWith(SignatureAlgorithm.HS256, jwtKey)
                 .compact();
     }
 
-    @SuppressWarnings("deprecation")
+ 
     public String getUserNameFromJwtToken(String token) {
         return Jwts
                 .parser().setSigningKey(jwtKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    @SuppressWarnings("deprecation")
+    
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtKey).parseClaimsJws(authToken);
