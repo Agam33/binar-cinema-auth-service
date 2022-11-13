@@ -8,11 +8,12 @@ app:
 
 eureka:
   instance:
-    client:
-      serviceUrl:
-        defaultZone: http://cinema-discovery-server.up.railway.app/eureka/
-        registerWithEureka: true
-        fetchRegistry: true
+    hostname: cinema-discovery-server.up.railway.app
+  client:
+    serviceUrl:
+      defaultZone: https://${eureka.instance.hostname}/eureka/
+      registerWithEureka: true
+      fetchRegistry: true
   
 spring:
   application:
