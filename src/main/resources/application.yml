@@ -15,11 +15,11 @@ eureka:
       registerWithEureka: true
       fetchRegistry: true
   
-# spring:
-#   application:
-#     name: auth-service
-#   config:
-#     import: optional:configserver:http://cinema-discovery-server.up.railway.app:8888
+spring:
+  application:
+    name: auth-service
+  config:
+    import: optional:configserver:http://api-config-server.up.railway.app
 
   jpa:
     hibernate:
