@@ -21,6 +21,15 @@ spring:
   config:
     import: optional:configserver:http://cinema-discovery-server.up.railway.app:8888
 
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://containers-us-west-113.railway.app:6613/railway
+    username: postgres
+    password: AreLJxqASMsvIf3xhbN4
+    driver-class-name: org.postgresql.Driver
+
 management:
   endpoints:
      web:
