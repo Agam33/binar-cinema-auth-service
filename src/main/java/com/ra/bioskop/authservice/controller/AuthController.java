@@ -39,9 +39,8 @@ import com.ra.bioskop.authservice.service.UserService;
 import com.ra.bioskop.authservice.util.Constants;
 import com.ra.bioskop.authservice.util.JwtUtil;
 
-@RefreshScope
+//@RefreshScope
 @CrossOrigin(origins = "*", maxAge = 3900)
-// @Tag(name = "Auth")
 @RestController
 @RequestMapping(Constants.AUTH_ENDPOINT)
 public class AuthController {

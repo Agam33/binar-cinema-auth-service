@@ -3,38 +3,38 @@ app:
     key: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
     exp: 18000000
 
-# server:
-#   port: 8082
+server:
+   port: 8083
 
-eureka:
-  instance:
-    hostname: cinema-discovery-server.up.railway.app
-  client:
-    serviceUrl:
-      defaultZone: https://${eureka.instance.hostname}/eureka/
-      registerWithEureka: true
-      fetchRegistry: true
+#eureka:
+#  instance:
+#    hostname: cinema-discovery-server.up.railway.app
+#  client:
+#    serviceUrl:
+#      defaultZone: https://${eureka.instance.hostname}/eureka/
+#      registerWithEureka: true
+#      fetchRegistry: true
   
 spring:
-  application:
-    name: auth-service
-  config:
-    import: optional:configserver:http://api-config-server.up.railway.app
+#  application:
+#    name: auth-service
+#  config:
+#    import: optional:configserver:http://api-config-server.up.railway.app
 
   jpa:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://containers-us-west-113.railway.app:6613/railway
+    url: jdbc:postgresql://localhost:5432/bioskop_db
     username: postgres
-    password: AreLJxqASMsvIf3xhbN4
+    password:
     driver-class-name: org.postgresql.Driver
 
-management:
-  endpoints:
-     web:
-       exposure:
-         include: '*'
+#management:
+#  endpoints:
+#     web:
+#       exposure:
+#         include: '*'
 
 
 #   jpa:
