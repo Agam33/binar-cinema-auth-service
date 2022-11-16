@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.ra.bioskop.authservice.security.userservice.UserDetailsImpl;
@@ -29,11 +30,11 @@ public class JwtUtil {
     @Value("${app.jwt.exp}")
     private long jwtExpirations;
 
+
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl appUser = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(appUser.getUsername())
-                .claim("role", appUser.getUser().getRoles().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + jwtExpirations))
                 .signWith(SignatureAlgorithm.HS256, jwtKey)
@@ -46,7 +47,6 @@ public class JwtUtil {
                 .parser().setSigningKey(jwtKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtKey).parseClaimsJws(authToken);
