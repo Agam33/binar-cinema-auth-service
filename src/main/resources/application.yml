@@ -12,7 +12,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: https://${eureka.instance.hostname}:${{ CINEMA_DISCOVERY_SERVER }}/eureka
-
+      
 spring:
    application:
      name: auth-service
