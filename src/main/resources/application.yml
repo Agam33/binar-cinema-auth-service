@@ -8,7 +8,7 @@ server:
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: binar-cinema-discovery.up.railway.app
   client:
     serviceUrl:
       defaultZone: https://${eureka.instance.hostname}:${{ CINEMA_DISCOVERY_SERVER }}/eureka
@@ -20,9 +20,7 @@ spring:
      hibernate:
        ddl-auto: update
    datasource:
-     url: jdbc:postgresql://localhost:5432/bioskop_db
-     # jdbc:postgresql://containers-us-west-68.railway.app:6368/railway
-     # password : xhtTI10rPJkQvUXUpfVz
-     username: postgres
-     password: password
+     url: jdbc:postgresql://:@${{ PGHOST }}:${{ PGPORT }}/${{ PGDATABASE }}
+     username: ${{ PGUSER }}
+     password: ${{ PGPASSWORD }}
      driver-class-name: org.postgresql.Driver
