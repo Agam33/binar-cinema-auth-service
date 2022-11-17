@@ -4,16 +4,15 @@ app:
     exp: 18000000
 
 server:
-   port: 8080
+   port: 8091
 
 eureka:
   instance:
     hostname: binar-cinema-discovery.up.railway.app
   client:
     serviceUrl:
-      defaultZone: https://${eureka.instance.hostname}:8761/eureka
+      defaultZone: https://${eureka.instance.hostname}/eureka
       
-
 spring:
    application:
      name: auth-service
