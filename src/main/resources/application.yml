@@ -20,7 +20,7 @@ spring:
      hibernate:
        ddl-auto: update
    datasource:
-     url: jdbc:postgresql://${{ PGUSER }}:${{ PGPASSWORD }}@${{ PGHOST }}:${{ PGPORT }}/${{ PGDATABASE }}
+     url: jdbc:postgresql://@${{ PGHOST }}:${{ PGPORT }}/${{ PGDATABASE }}
      username: ${{ PGUSER }}
      password: ${{ PGPASSWORD }}
      driver-class-name: org.postgresql.Driver
