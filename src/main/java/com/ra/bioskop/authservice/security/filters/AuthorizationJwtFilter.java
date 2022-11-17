@@ -60,6 +60,7 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
         String email = jwtUtil.getUserNameFromJwtToken(token);
         LOGGER.info("Email - " + email);
         UserDetails userDetails = userDetailService.loadUserByUsername(email);
+        if(userDetails == null) return;
         request.setAttribute("token", token);
         request.setAttribute("authorities", authoritiesToString(userDetails.getAuthorities()));
     }
