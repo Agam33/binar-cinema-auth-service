@@ -11,7 +11,8 @@ eureka:
     hostname: binar-cinema-discovery.up.railway.app
   client:
     serviceUrl:
-      defaultZone: https://${eureka.instance.hostname}:${{ CINEMA_DISCOVERY_SERVER }}/eureka
+      defaultZone: https://${eureka.instance.hostname}:8761/eureka
+      
 
 spring:
    application:
@@ -20,7 +21,7 @@ spring:
      hibernate:
        ddl-auto: update
    datasource:
-     url: jdbc:postgresql://${{ PGHOST }}:${{ PGPORT }}/${{ PGDATABASE }}
-     username: ${{ PGUSER }}
-     password: ${{ PGPASSWORD }}
+     url: jdbc:postgresql://containers-us-west-54.railway.app:6873/railway
+     username: postgres
+     password: PrAVTvYhJtOAf4je4d9B
      driver-class-name: org.postgresql.Driver
