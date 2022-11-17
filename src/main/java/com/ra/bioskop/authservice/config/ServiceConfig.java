@@ -3,9 +3,9 @@ package com.ra.bioskop.authservice.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.core.io.Resource;
 
 @Configuration
 public class ServiceConfig {
@@ -13,7 +13,6 @@ public class ServiceConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     /*
      * pre-populate database
