@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -38,7 +37,7 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        
+
         if (!hasToken(request)) {
             filterChain.doFilter(request, response);
             return;
@@ -60,19 +59,9 @@ public class AuthorizationJwtFilter extends OncePerRequestFilter {
         String email = jwtUtil.getUserNameFromJwtToken(token);
         LOGGER.info("Email - " + email);
         UserDetails userDetails = userDetailService.loadUserByUsername(email);
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                userDetails.getAuthorities());
-
+        if(userDetails == null) return;
         request.setAttribute("token", token);
         request.setAttribute("authorities", authoritiesToString(userDetails.getAuthorities()));
-        
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        
-        
     }
 
     private String getToken(HttpServletRequest request) {
