@@ -6,12 +6,12 @@ app:
 server:
    port: 8091
 
-eureka:
-  instance:
-    hostname: binar-cinema-discovery.up.railway.app
-  client:
-    serviceUrl:
-      defaultZone: https://${eureka.instance.hostname}/eureka
+#eureka:
+#  instance:
+#    hostname: binar-cinema-discovery.up.railway.app
+#  client:
+#    serviceUrl:
+#      defaultZone: https://${eureka.instance.hostname}/eureka
       
 spring:
    application:
@@ -20,7 +20,9 @@ spring:
      hibernate:
        ddl-auto: update
    datasource:
-     url: jdbc:postgresql://containers-us-west-54.railway.app:6873/railway
+     url: jdbc:postgresql://localhost:5432/bioskop_db
+#     url: jdbc:postgresql://containers-us-west-54.railway.app:6873/railway
      username: postgres
-     password: PrAVTvYhJtOAf4je4d9B
+     password: password
+#     password: PrAVTvYhJtOAf4je4d9B
      driver-class-name: org.postgresql.Driver
