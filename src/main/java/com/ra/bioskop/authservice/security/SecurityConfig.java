@@ -46,7 +46,7 @@ public class SecurityConfig {
         this.userDetailService = userDetailService;
     }
 
-     @Bean
+    @Bean
     public SecurityFilterChain apiWebSecurity(HttpSecurity http) throws Exception {
 
         http.formLogin().disable();

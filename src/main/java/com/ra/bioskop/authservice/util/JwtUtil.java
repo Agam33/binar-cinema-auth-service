@@ -30,7 +30,6 @@ public class JwtUtil {
     @Value("${app.jwt.exp}")
     private long jwtExpirations;
 
-
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl appUser = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
@@ -41,7 +40,6 @@ public class JwtUtil {
                 .compact();
     }
 
- 
     public String getUserNameFromJwtToken(String token) {
         return Jwts
                 .parser().setSigningKey(jwtKey).parseClaimsJws(token).getBody().getSubject();

@@ -11,7 +11,6 @@ public class Constants {
     public static final String CREATED_MSG = "created";
     public static final String ALREADY_EXIST_MSG = "already exist";
     public static final String AUTH_ENDPOINT = "/api/auth";
-
     public static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]" +
             "(.[_A-Za-z0-9-]+)@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)" +
             "(.[A-Za-z]{2,})$";
